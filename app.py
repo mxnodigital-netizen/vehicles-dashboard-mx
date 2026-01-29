@@ -57,9 +57,15 @@ if year_range is not None and "model_year" in df_filtered.columns:
         (df_filtered["model_year"] >= year_range[0]) &
         (df_filtered["model_year"] <= year_range[1])
     ]
-
 if condition != "all" and "condition" in df_filtered.columns:
     df_filtered = df_filtered[df_filtered["condition"] == condition]
+
+# --- Checkbox para mostrar dados brutos ---
+show_data = st.checkbox('Mostrar tabela de dados brutos')
+
+if show_data:
+    st.subheader('Tabela de dados filtrados')
+    st.dataframe(df_filtered)
 
 st.subheader("Resumo dos dados filtrados")
 st.write(df_filtered.describe(include="all"))
@@ -107,5 +113,6 @@ if "type" in df_filtered.columns:
     st.plotly_chart(fig_type, use_container_width=True)
 else:
     st.info("Coluna 'type' não encontrada no dataset.")
+
 
 
